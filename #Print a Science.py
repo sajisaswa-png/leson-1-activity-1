@@ -1,7 +1,7 @@
 #Print a Science
-print("Welcome to the world of program")
+print("Welcome to the python programing ")
 #Print a Number
-
+print("welcome to codingal \n")
 
 print(4)
 
