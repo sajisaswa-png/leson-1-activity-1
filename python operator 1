@@ -1,0 +1,51 @@
+Vo
+. WiFi.ll
+Dashboard |.. о
+codingal.com
+Codingal
+30
+口
+:
+
+
+Copy
+
+math
+int(input("maths :"))
+
+english
+=
+int(input("english :"))
+
+science
+=
+int(input("science :"))
+
+hindi =
+int(input("hindi :"))
+
+
+
+of marks
+
+sum =
+
+math+english+science+hindi
+print("sum of
+math, english, science and hindi =
+", sum)
+
+
+perc =
+(sum/400)*100
+
+
+
+print(end="Percentage Mark = ")
+print(perc)
+Activity screenshots
+Enter Marks Obtained in 4 Subjects:
+maths :45
+english :56
+science :78
+hindi :98

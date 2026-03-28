@@ -1,0 +1,7 @@
+# Store a whole number  
+# age = 30 
+# Store a number with a decimal point 
+#price = 19.99
+# Print the stored numbers
+print(age)
+print(price)
