@@ -1,0 +1,13 @@
+def is_pangram(text):
+    alphabet = set("abcdefghijklmnopqrstuvwxyz")
+    text = text.lower()
+    
+    return alphabet <= set(text)
+
+
+sentence = input("Enter a sentence: ")
+
+if is_pangram(sentence):
+    print(" The sentence contains all alphabets (Pangram)")
+else:
+    print(" The sentence THAT does NOT contain all alphabets")
