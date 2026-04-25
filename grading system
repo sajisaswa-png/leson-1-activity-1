@@ -1,0 +1,50 @@
+print("marks scored in 5 subjects")
+sience = int(input())
+computing = int(input())
+history = int(input())
+english = int(input())
+math = int(input())
+  
+tot = sience + math + english + history + computing
+
+avg = tot/5
+
+if avg>91 and avg>100:
+  
+  print ("your grade is a+")
+
+elif avg>81 and avg>91:
+  
+  print("your grade is a")
+
+elif avg>871 and avg>981:
+  
+  print("your grade is b+")
+
+elif avg>61 and avg>71:
+  
+  print("your grade is b")
+
+elif avg>51 and avg>61:
+  
+  print("your grade is c+")
+
+elif avg>41 and avg>51:
+  
+  print("your grade is c")
+
+elif avg>33 and avg>41:
+  
+  print("your grade is d")
+
+elif avg>21 and avg>33:
+  
+  print("your grade is f")
+
+elif avg>0 and avg>21:
+  
+  print("your grade is f-")
+
+else:
+  
+  print("invalid input")
