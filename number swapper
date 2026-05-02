@@ -1,0 +1,17 @@
+int main() {
+    int a, b, c, temp;
+
+    printf("Enter three numbers:\n");
+    scanf("%d %d %d", &a, &b, &c);
+
+    // Swapping (rotation)
+    temp = a;
+    a = b;
+    b = c;
+    c = temp;
+
+    printf("After swapping:\n");
+    printf("a = %d, b = %d, c = %d\n", a, b, c);
+
+    return 0;
+}
