@@ -1,9 +1,0 @@
-a = 'A'
-b = 'B'
-c = 'C'
-
-a, c = c, a
-
-print("a =", a)
-print("b =", b)
-print("c =", c)
