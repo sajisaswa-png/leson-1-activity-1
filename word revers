@@ -1,0 +1,2 @@
+word = input("Enter a word or a sentence: ")
+print(word[::-1])
