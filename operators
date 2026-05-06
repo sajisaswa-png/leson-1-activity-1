@@ -1,21 +1,22 @@
-print("Simple Calculator")
-
 a = float(input("Enter first number: "))
 b = float(input("Enter second number: "))
 c = float(input("Enter third number: "))
+operator = input("Enter operator (+, -, *, /): ")
 
-op = input("Choose operation (+, -, *, /): ")
+if operator == "+":
+    print("Result:", a + b + c)
 
-if op == "+":
-    print("Result:", a + b +c)
-elif op == "-":
+elif operator == "-":
     print("Result:", a - b - c)
-elif op == "*":
+
+elif operator == "*":
     print("Result:", a * b * c)
-elif op == "/":
-    if b != 0:
-        print("Result:", a / b / c )
+
+elif operator == "/":
+    if num2 != 0:
+        print("Result:", a / b / c)
     else:
-        print("Cannot divide by zero!")
+        print("Error: Division by zero!")
+
 else:
-    print("Invalid operation")
+    print("Invalid operator")
