@@ -1,0 +1,17 @@
+import random
+
+words = ["demonitised"]
+
+word = random.choice(words)
+
+scrambled = ''.join(random.sample(word, len(word)))
+
+print("Unscramble the word:")
+print(scrambled)
+
+guess = input("Your answer: ")
+
+if guess.lower() == word:
+    print("Correct! 🎉")
+else:
+    print("Wrong! The word was:", word)
