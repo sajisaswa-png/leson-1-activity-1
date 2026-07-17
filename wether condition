@@ -1,0 +1,7 @@
+def wether_condition():
+    print("the weathre is plesent in", spring)
+    print("the weather is the same in", autumn)
+
+spring = "autumn"
+autumn = spring
+wether_condition()

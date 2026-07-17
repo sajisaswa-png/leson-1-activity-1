@@ -1,0 +1,25 @@
+conditions = [
+    "I understand this action may be irreversible.",
+    "I have saved all important data.",
+    "I have permission to perform this action.",
+    "I understand all running processes may stop.",
+    "I accept full responsibility for continuing."
+]
+
+print("=== Project: Shutdown ===")
+print("You must agree to all conditions to continue.\n")
+
+for i, condition in enumerate(conditions, start=1):
+    while True:
+        answer = input(f"{i}. {condition}\nType 'yes' to agree: ").strip().lower()
+
+        if answer == "yes":
+            break
+        elif answer == "no":
+            print("\nAbort shut down.")
+            exit()
+        else:
+            print("Please type 'yes' or 'no'.\n")
+
+print("\nAll conditions accepted.")
+print("Proceeding...")
