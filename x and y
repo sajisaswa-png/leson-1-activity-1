@@ -1,0 +1,37 @@
+from vpython import box, vector, color, canvas
+
+# Open the 3D viewing screen
+scene = canvas(title="3D Room Blocks", width=800, height=600, background=color.gray(0.15))
+
+# Dimensions for our 3D structure
+width = 4   # X axis (Left to Right)
+depth = 4   # Y axis (Front to Back)
+height = 3  # Z axis (Stories/Floors)
+
+print("=== Starting 3D Building Generation ===")
+
+# Loop 1: Controls the vertical Floors (Z)
+for z in range(height):
+    
+    # Loop 2: Controls the Rows (X)
+    for x in range(width):
+        
+        # Loop 3: Controls the Columns (Y)
+        for y in range(depth):
+            
+            # Add spacing between blocks so we can see individual rooms
+            x_pos = x * 1.5
+            y_pos = y * 1.5
+            z_pos = z * 1.5
+            
+            # Spawn the 3D block
+            box(
+                pos=vector(x_pos, z_pos, y_pos),  # VPython uses Y as up, Z as depth usually, but we map it here
+                length=1, 
+                height=1, 
+                width=1, 
+                color=color.orange
+            )
+
+print(f"Generated a 3D structure with {width * depth * height} blocks!")
+

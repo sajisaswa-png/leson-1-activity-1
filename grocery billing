@@ -1,4 +1,4 @@
-print("=== Grocery Billing Queue ===\n")
+print("=== Grocery Billing ===\n")
  
 low_price_items = 0
 medium_price_items = 0
