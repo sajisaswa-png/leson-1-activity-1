@@ -1,0 +1,113 @@
+# Student App Access Manager
+ 
+# Permission values stored as binary bits
+CAMERA = 1       # 0001
+MICROPHONE = 2   # 0010
+STORAGE = 4      # 0100
+LOCATION = 8     # 1000
+ 
+# List of apps available to students
+approved_apps = [
+    "coding app",
+    "math app",
+    "reading app",
+    "science app"
+    "codingal"
+    "byjus"
+    "wikipedia"
+    "mit app inventor "
+    "ai code 101"
+]
+ 
+# Get student details
+student_name = input("Enter your name: ")
+requested_app = input("Enter the app you want to access: ").lower()
+ 
+print("\n--- Identity Operator Check ---")
+ 
+# Use 'is' to check the data type
+if type(student_name) is str:
+    print("The student name is stored as text.")
+ 
+# Use 'is not' to check the data type
+if type(requested_app) is not int:
+    print("The requested app is not stored as a number.")
+ 
+ 
+print("\n--- Membership Operator Check ---")
+ 
+# Use 'in' to check whether the app is approved
+if requested_app in approved_apps:
+    print(requested_app, "is an approved student app.")
+else:
+    print(requested_app, "is not an approved student app.")
+ 
+# Use 'not in' to check restricted apps
+restricted_apps = [
+    "gaming app",
+    "shopping app",
+    "social media app"
+    "x"
+    "twitter"
+    "youtube"
+    "roblox"
+    "minecraft"
+    "amazon"
+    "meesho"
+    "flipcart"
+    "watsap"
+]
+ 
+if requested_app not in restricted_apps:
+    print("The app is not in the restricted list.")
+else:
+    print("Access denied because the app is restricted.")
+ 
+ 
+print("\n--- App Permission Settings ---")
+ 
+# Combine permissions using the bitwise OR operator
+student_permissions = CAMERA | MICROPHONE | STORAGE
+ 
+# Display the permission number in binary
+print("Permission value:", student_permissions)
+print("Permission bits:", bin(student_permissions))
+ 
+# Check permissions using the bitwise AND operator
+if student_permissions & CAMERA:
+    print("Camera permission: Enabled")
+ 
+if student_permissions & MICROPHONE:
+    print("Microphone permission: Enabled")
+ 
+if student_permissions & STORAGE:
+    print("Storage permission: Enabled")
+ 
+if student_permissions & LOCATION:
+    print("Location permission: Enabled")
+else:
+    print("Location permission: Disabled")
+ 
+ 
+print("\n--- Bit Shift Demonstration ---")
+ 
+# Shift the CAMERA bit left to create the next permission value
+next_permission = CAMERA << 1
+ 
+print("Camera bit:", bin(CAMERA))
+print("After left shift:", bin(next_permission))
+ 
+# Shift the STORAGE bit right
+previous_permission = STORAGE >> 1
+ 
+print("Storage bit:", bin(STORAGE))
+print("After right shift:", bin(previous_permission))
+ 
+ 
+print("\n--- Final Access Result ---")
+ 
+# Check both app approval and permission availability
+if requested_app in approved_apps and requested_app not in restricted_apps:
+    print("Access granted to", requested_app)
+else:
+    print("Access denied to", requested_app)
