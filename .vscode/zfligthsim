@@ -1,0 +1,151 @@
+import pygame
+from pygame.locals import *
+from OpenGL.GL import *
+from OpenGL.GLU import *
+import math
+import random
+
+pygame.init()
+pygame.mixer.init()
+
+WIDTH, HEIGHT = 1000, 700
+pygame.display.set_mode((WIDTH, HEIGHT), DOUBLEBUF | OPENGL)
+pygame.display.set_caption("3D Flight Simulator")
+
+def generate_engine_sound():
+    sample_rate = 22050
+    duration = 1.0
+    num_samples = int(sample_rate * duration)
+    buf = bytearray()
+    for i in range(num_samples):
+        val = int(127 + 40 * math.sin(i * 0.05) + random.randint(-15, 15))
+        val = max(0, min(255, val))
+        buf.append(val)
+    sound = pygame.mixer.Sound(buffer=bytes(buf))
+    sound.set_volume(0.3)
+    return sound
+
+try:
+    engine_sound = generate_engine_sound()
+    engine_sound.play(loops=-1)
+except Exception as e:
+    print("Audio error:", e)
+    engine_sound = None
+
+px, py, pz = 0.0, 100.0, 0.0
+pitch, yaw, roll = 0.0, 0.0, 0.0
+throttle = 0.3
+speed = 0.8
+target_speed = 0.8
+GRAVITY = 0.015
+
+C_SKY = (0.4, 0.6, 0.9, 1.0)
+C_GRASS = (0.2, 0.6, 0.2, 1.0)
+C_GRID = (0.15, 0.5, 0.15, 1.0)
+C_RUNWAY = (0.2, 0.2, 0.25, 1.0)
+
+glMatrixMode(GL_PROJECTION)
+glLoadIdentity()
+gluPerspective(60.0, (WIDTH / HEIGHT), 0.1, 3000.0)
+glMatrixMode(GL_MODELVIEW)
+glEnable(GL_DEPTH_TEST)
+
+rings = [[0,120,-300,12],[100,150,-600,12],[-50,180,-900,12],[0,200,-1200,15],[150,140,-1500,15]]
+
+def draw_grid():
+    glPushMatrix()
+    glColor4f(0.2, 0.6, 0.2, 1.0)
+    glBegin(GL_QUADS)
+    glVertex3f(-2000, 0, -2000)
+    glVertex3f(2000, 0, -2000)
+    glVertex3f(2000, 0, 2000)
+    glVertex3f(-2000, 0, 2000)
+    glEnd()
+
+    glColor4f(0.15, 0.5, 0.15, 1.0)
+    glLineWidth(1.0)
+    glBegin(GL_LINES)
+    for i in range(-2000, 2000, 80):
+        glVertex3f(i, 0.1, -2000)
+        glVertex3f(i, 0.1, 2000)
+        glVertex3f(-2000, 0.1, i)
+        glVertex3f(2000, 0.1, i)
+    glEnd()
+
+    glColor4f(0.2, 0.2, 0.25, 1.0)
+    glBegin(GL_QUADS)
+    glVertex3f(-15, 0.2, -600)
+    glVertex3f(15, 0.2, -600)
+    glVertex3f(15, 0.2, 200)
+    glVertex3f(-15, 0.2, 200)
+    glEnd()
+
+    glColor3f(1.0, 1.0, 1.0)
+    glLineWidth(2.0)
+    glBegin(GL_LINES)
+    for z in range(-600, 200, 40):
+        glVertex3f(0, 0.3, z)
+        glVertex3f(0, 0.3, z + 20)
+    glEnd()
+    glPopMatrix()
+
+def draw_plane():
+    glPushMatrix()
+    glColor3f(0.85, 0.85, 0.9)
+    glBegin(GL_TRIANGLES)
+    glVertex3f(0, 0, 10)
+    glVertex3f(-5, 0, 0)
+    glVertex3f(5, 0, 0)
+    glEnd()
+    glPopMatrix()
+
+clock = pygame.time.Clock()
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            running = False
+
+    keys = pygame.key.get_pressed()
+    if keys[K_w]:
+        pitch += 1
+    if keys[K_s]:
+        pitch -= 1
+    if keys[K_a]:
+        roll -= 1
+    if keys[K_d]:
+        roll += 1
+    if keys[K_UP]:
+        throttle = min(1.0, throttle + 0.01)
+    if keys[K_DOWN]:
+        throttle = max(0.0, throttle - 0.01)
+
+    target_speed = throttle * 2.5
+    speed += (target_speed - speed) * 0.05
+    rad_yaw = math.radians(yaw)
+    rad_pitch = math.radians(pitch)
+    px += math.sin(rad_yaw) * math.cos(rad_pitch) * speed
+    pz -= math.cos(rad_yaw) * math.cos(rad_pitch) * speed
+    py += math.sin(rad_pitch) * speed - GRAVITY
+    if py < 5:
+        py = 5
+
+    glClearColor(0.4, 0.6, 0.9, 1.0)
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+    gluLookAt(px, py+8, pz+30, px, py, pz, 0, 1, 0)
+
+    draw_grid()
+
+    glPushMatrix()
+    glTranslatef(px, py, pz)
+    glRotatef(yaw, 0, 1, 0)
+    glRotatef(pitch, 1, 0, 0)
+    glRotatef(roll, 0, 0, 1)
+    draw_plane()
+    glPopMatrix()
+
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()
